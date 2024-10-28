@@ -16,6 +16,7 @@
 
 </head>
 <body>
+    <div><a href="index.html">回到首頁</a></div>
 <?php 
     //這行檢查URL中是否存在名為 bmi 的參數。//
     //isset() 用於確認該變數是否被設置且不為 null。//

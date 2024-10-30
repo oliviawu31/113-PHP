@@ -34,7 +34,7 @@
     }
 
     .nav {
-        width: 520px;
+        width: 688px;
         margin:auto;
     }
     .nav table td{
@@ -50,7 +50,7 @@
 </ul>
 
 <?php
-
+// 取得當前月份和年份
 if(isset($_GET['month'])){
     $month=$_GET['month'];
 }else{
@@ -84,7 +84,14 @@ $spDate=['2024-11-07'=>"立冬",
         '2024-11-22'=>'小雪'];
 
 /*每年固定的假日*/
-$holidays = ['01-01' => "元旦"]
+$holidays = [   
+'01-01' => "元旦",
+'02-10' => "農曆新年",
+'04-04' => "兒童節",
+'04-05' => "清明節",
+'05-01' => "勞動節",
+'10-10' => "國慶日"
+];
 
 ?>
 <div class='nav'>
@@ -92,13 +99,13 @@ $holidays = ['01-01' => "元旦"]
         <tr>
             <td style='text-align:left'>
                 <a href="">前年</a>
-                <a href="calendar.php?year=<?=$prevYear;?>&month=<?=$prevMonth;?>">上一個月</a>
+                <a href="calender.php?year=<?=$prevYear;?>&month=<?=$prevMonth;?>">上一個月</a>
             </td>
             <td>
                 <?php echo date("{$month}月");?>
             </td>
             <td style='text-align:right'>
-                <a href="calendar.php?year=<?=$nextYear;?>&month=<?=$nextMonth;?>">下一個月</a>
+                <a href="calender.php?year=<?=$nextYear;?>&month=<?=$nextMonth;?>">下一個月</a>
                 <a href="">明年</a>
             </td>
         </tr>
@@ -117,7 +124,7 @@ $holidays = ['01-01' => "元旦"]
 </tr>
 <?php
 
-$firstDay="year-{$month}-1";
+$firstDay="{$year}-{$month}-1";
 $firstDayTime=strtotime($firstDay);
 $firstDayWeek=date("w",$firstDayTime);
 
@@ -139,12 +146,14 @@ for($i=0;$i<6;$i++){
         
         echo "<td class='$isHoliday $theMonth $isToday'>";
         echo date("d",$theDayTime);
-        if(isset($spDate[date("Y-m-d" ,$theDayTime)])){
-            echo "<br>{$spDate[date("Y-m-d", $theDayTime)]}";
+        if(isset($spDate[date("Y-m-d",$theDayTime)])){
+            echo "<br>{$spDate[date("Y-m-d",$theDayTime)]}";
         }
-        if(isset($holidays[date("m-d" ,$theDayTime)])){
-            echo "<br>{$holidays[date("m-d", $theDayTime)]}";
+        
+        if(isset($holidays[date("m-d",$theDayTime)])){
+            echo "<br>{$holidays[date("m-d",$theDayTime)]}";
         }
+
         echo "</td>";
         
     }

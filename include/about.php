@@ -14,15 +14,14 @@
     <a href="login.php">登入</a> -->
 <!-- < ?php include("common/navbar.php"); ?> -->
 <?php
+
 $page= "about";
  include("common/navbar.php"); ?>
-
 
 <main>
     <h2>我們是一家很棒的公司</h2>
     <p>我們提供最好的服務</p>
 </main>
-    <?php include("common/footer.html"); ?>
-</footer>
+<?php include("common/footer.html"); ?>
 </body>
 </html>

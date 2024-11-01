@@ -9,7 +9,11 @@
     <a href="product.php">產品介紹</a>
     <a href="contact.php">聯絡我們</a>
     <a href="login.php">登入</a> -->
-    <?php include("common/navbar.php"); ?>
+    <!-- <?php include("common/navbar.php"); ?> -->
+    <?php
+        $page= "index";
+     include("common/navbar.php"); 
+     ?>
 
     <main>
         <h2>歡迎光臨</h2>

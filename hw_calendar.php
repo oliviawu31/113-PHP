@@ -52,9 +52,13 @@ $daysInMonth = date("t", $firstDayTime);  // 當月的天數
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>萬年曆</title>
     <style>
+        
         table {
+            width: 100%;
+            max-width: 700px;
             border-collapse: collapse;
             margin: auto;
+
         }
         td {
             padding: 5px 10px;
@@ -64,14 +68,14 @@ $daysInMonth = date("t", $firstDayTime);  // 當月的天數
             height: 60px;
         }
         .holiday {
-            background-color: #f8b4d9;
+            background-color: lightblue;
             color: #999;
         }
         .grey-text {
             color: #999;
         }
         .today {
-            background: blue;
+            background: lightpink;
             color: white;
             font-weight: bolder;
         }
@@ -89,7 +93,7 @@ $daysInMonth = date("t", $firstDayTime);  // 當月的天數
             color: blue;
         }
         a:hover {
-            color: darkblue;
+            color: lightpink;
         }
         /* 週末的背景色設為粉紅 */
         .weekend {
@@ -105,14 +109,14 @@ $daysInMonth = date("t", $firstDayTime);  // 當月的天數
         <tr>
             <td style='text-align:left'>
                 <a href="hw_calendar.php?year=<?= $prevYear; ?>&month=<?= $prevMonth; ?>">上一個月</a>
-                <a href="hw_calendar.php?year=<?= $prevYear - 1; ?>&month=<?= $prevMonth; ?>">前年</a>
+                <a href="hw_calendar.php?year=<?= $prevYear; ?>&month=<?= $prevMonth; ?>">前年</a>
             </td>
             <td>
                 <?= $year; ?>年 <?= $month; ?>月
             </td>
             <td style='text-align:right'>
                 <a href="hw_calendar.php?year=<?= $nextYear; ?>&month=<?= $nextMonth; ?>">下一個月</a>
-                <a href="hw_calendar.php?year=<?= $nextYear + 1; ?>&month=<?= $nextMonth; ?>">明年</a>
+                <a href="hw_calendar.php?year=<?= $nextYear; ?>&month=<?= $nextMonth; ?>">明年</a>
             </td>
         </tr>
     </table>

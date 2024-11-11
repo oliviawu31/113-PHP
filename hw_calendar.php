@@ -1,3 +1,45 @@
+<?php
+// 取得當前的月份和年份，若沒有透過URL傳遞則使用當前月份和年份
+$month = isset($_GET['month']) ? $_GET['month'] : date("m");
+$year = isset($_GET['year']) ? $_GET['year'] : date("Y");
+
+// 計算上一個月的年月
+$prevMonth = $month - 1;
+if ($prevMonth < 1) {
+    $prevMonth = 12; // 如果是1月，則上一個月是12月
+    $prevYear = $year - 1; // 需將年份減少1
+} else {
+    $prevYear = $year;
+}
+
+// 計算下一個月的年月
+$nextMonth = $month + 1;
+if ($nextMonth > 12) {
+    $nextMonth = 1; // 如果是12月，則下一個月是1月
+    $nextYear = $year + 1; // 需將年份增加1
+} else {
+    $nextYear = $year;
+}
+
+// 每年特別的日期
+$spDate = [
+    '2024-11-07' => "立冬",
+    '2024-11-22' => '小雪'
+];
+
+// 每年固定的假期
+$holidays = [
+    '01-01' => "元旦"
+];
+
+// 計算當月的第一天是星期幾
+$firstDay = "$year-$month-01"; // 取得當月的第一天
+$firstDayTime = strtotime($firstDay); // 將第一天轉換為時間戳
+$firstDayWeek = date("w", $firstDayTime); // 取得第一天是星期幾，0為星期日
+
+// 取得當月有多少天
+$daysInMonth = date("t", $firstDayTime);  // 當月的天數
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -54,53 +96,6 @@
 <body>
 <h1>萬年曆</h1>
 
-<?php
-// 取得當前的月份和年份，若沒有透過URL傳遞則使用當前月份和年份
-$month = isset($_GET['month']) ? $_GET['month'] : date("m");
-$year = isset($_GET['year']) ? $_GET['year'] : date("Y");
-
-// 計算上一個月的年月
-$prevMonth = $month - 1;
-if ($prevMonth < 1) {
-    $prevMonth = 12; // 如果是1月，則上一個月是12月
-    $prevYear = $year - 1; // 需將年份減少1
-} else {
-    $prevYear = $year;
-}
-
-// 計算下一個月的年月
-$nextMonth = $month + 1;
-if ($nextMonth > 12) {
-    $nextMonth = 1; // 如果是12月，則下一個月是1月
-    $nextYear = $year + 1; // 需將年份增加1
-} else {
-    $nextYear = $year;
-}
-
-// 每年特別的日期
-$spDate = [
-    '2024-11-07' => "立冬",
-    '2024-11-22' => '小雪'
-];
-
-// 每年固定的假期
-$holidays = [
-    '01-01' => "元旦"
-];
-
-// 計算當月的第一天是星期幾
-$firstDay = "$year-$month-01"; // 取得當月的第一天
-$firstDayTime = strtotime($firstDay); // 將第一天轉換為時間戳
-$firstDayWeek = date("w", $firstDayTime); // 取得第一天是星期幾，0為星期日
-
-// 星期日 (0) 轉換為星期七 (7)，將星期一視為一週的開始
-if ($firstDayWeek == 0) {
-    $firstDayWeek = 7; // 讓星期日顯示在最後
-}
-
-// 取得當月有多少天
-$daysInMonth = date("t", $firstDayTime);  // 當月的天數
-?>
 <div class="nav">
     <table style="width:100%">
         <tr>
@@ -129,19 +124,18 @@ $daysInMonth = date("t", $firstDayTime);  // 當月的天數
     <td>六</td>
     <td>日</td>
 </tr>
-
 <?php
 // 計算顯示的天數
 $daysShown = 0; // 記錄顯示的天數
 for ($i = 0; $i < 6; $i++) { // 六行
     echo "<tr>";
-    for ($j = 1; $j <= 7; $j++) { // 七列（週一到週日）
-        if ($daysShown < $firstDayWeek - 1) {
+    for ($j = 0; $j < 7; $j++) { // 七列（週日到週六）
+        if ($daysShown < $firstDayWeek) {
             // 如果還沒到當月的第一天，則顯示空格
             echo "<td></td>";
-        } elseif ($daysShown < $daysInMonth + $firstDayWeek - 1) {
+        } elseif ($daysShown < $daysInMonth + $firstDayWeek) {
             // 顯示當月的日期
-            $currentDay = $daysShown - $firstDayWeek + 2; // 日期開始的偏移
+            $currentDay = $daysShown - $firstDayWeek + 1; // 日期開始的偏移
             $theDayTime = strtotime("$currentDay days", $firstDayTime);
             $day = date("d", $theDayTime); // 取得日（1-31）
             $dateStr = date("Y-m-d", $theDayTime); // 格式化成 "YYYY-MM-DD" 格式

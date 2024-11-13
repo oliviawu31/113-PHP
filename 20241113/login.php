@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>loginin</title>
+    <title>登入畫面</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -51,13 +51,17 @@
 </head>
 <body>
 <?php
-// session_start();
-if(!isset($_SESSION['login'])){
-?>
 
+if(isset($_GET['err'])){
+    echo "<h3 style='color:red;text-align:center'>帳號或密碼錯誤</h3>";
+}
+
+
+if(!isset($_COOKIE['login'])){
+?>
     <div class="login-container">
         <h2>登入</h2>
-        <form action="check_login.php" method="post">
+        <form action="check_acc.php" method="post">
             <input type="text" name="acc" placeholder="使用者名稱" required>
             <input type="password" name="pw" placeholder="密碼" required>
             <input type="submit" value="登入">
@@ -73,7 +77,5 @@ if(!isset($_SESSION['login'])){
 <?php
 }
 ?>
-
 </body>
 </html>
-</head>

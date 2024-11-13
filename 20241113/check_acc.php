@@ -1,64 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>check login</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-        .container {
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 300px;
-            text-align: center; /* 將內容置中 */
-        }
-        h1 {
-            margin-bottom: 20px;
-        }
-        a {
-            color: #5cb85c;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-    </style>
-</head>
-<body>
-
 <?php 
+
+$dsn="mysql:host=localhost;charset=utf8;dbname=crud";
+$pdo=new PDO($dsn,'root','');
+
+
+if(!isset($_POST['acc'])){
+    header("location:login.php");
+    exit();
+}
 
 $acc=$_POST['acc'];
 $pw=$_POST['pw'];
 
-$sql="";
-$pdo->query($sql);
+//$sql="select * from `member` where `acc`='$acc' && `pw`='$pw'";
+$sql="select count(id) from `member` where `acc`='$acc' && `pw`='$pw'";
+//echo $sql;
+$row=$pdo->query($sql)->fetchColumn();
 
-$row=$pdo->query("select * from `member` where acc=$acc && pw =$pw")->fetch();
-if($acc==$row['acc'] && $pw==$row['pw']){
-    echo "帳密正確:登入成功";
-    setcookie("login","$acc",time()+180);
-    echo $_COOKIE['login'];
-    echo "<br><a href='login.php'>回首頁</a>"; // 提供返回登入頁面的鏈接
-} else{
-    echo "帳密錯誤:登入失敗";
+//echo "<pre>";
+//print_r($row);
+//echo "</pre>";
+
+//if($acc==$row['acc'] && $pw==$row['pw']){
+if($row>=1){
+    
+    //$_SESSION['login']=$acc;
+    //echo "<br><a href='login2.php'>回首頁</a>";
+    header("location:success.php");
+}else{
+    header("location:login.php?err=1");
+
 }
 
 
 ?>
-
-
-
-
-</body>
-</html>

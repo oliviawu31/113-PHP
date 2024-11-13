@@ -54,7 +54,7 @@ if(isset($_GET['weight'])){
     <div>您的BMI為:<?=$bmi;?></div> 
     <div>體位判定為:<?=$category;?></div>
     <div>
-        <a href="index.php">回首頁/重新測量</a>
+        <a href="bmi.php">回首頁/重新測量</a>
     </div>
 
 </body>

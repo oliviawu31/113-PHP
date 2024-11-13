@@ -4,35 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>資料庫連線</title>
-    <style>
-        table{
-            border-collapse: collapse;
-            width: 50%;
-            text-align: center;
-        }
-        tr,
-        td {
-            border: 1px solid palevioletred;
-            height: 30vh;
-        }
 
-
-    </style>
 </head>
 <body>
     <h1>資料庫連線</h1>
     
-    <div>
-    <table>
-    <?php foreach ($rows as $row): ?>
-        <tr>
-            <td><?php echo $row['id']; ?></td>
-            <td><?php echo $row['name']; ?></td>
-            <td><?php echo $row['tutor']; ?></td>
-        </tr>
-        <?php endforeach; ?>
-    </table>
-
     <?php
     $dsn= "mysql:host=localhost;charset=utf8;dbname=school";
     $pdo=new PDO($dsn,'root','');
